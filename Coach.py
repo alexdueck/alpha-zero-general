@@ -19,8 +19,8 @@ class Coach():
         self.pnet = self.nnet.__class__(self.game)  # the competitor network
         self.args = args
         self.mcts = MCTS(self.game, self.nnet, self.args)
-        self.trainExamplesHistory = []    # history of examples from args.numItersForTrainExamplesHistory latest iterations
-        self.skipFirstSelfPlay = False # can be overriden in loadTrainExamples()
+        self.trainExamplesHistory = []  # history of examples from args.numItersForTrainExamplesHistory latest iterations
+        self.skipFirstSelfPlay = False  # can be overriden in loadTrainExamples()
 
     def executeEpisode(self):
         """
@@ -88,8 +88,8 @@ class Coach():
                     # bookkeeping + plot progress
                     eps_time.update(time.time() - end)
                     end = time.time()
-                    bar.suffix  = '({eps}/{maxeps}) Eps Time: {et:.3f}s | Total: {total:} | ETA: {eta:}'.format(eps=eps+1, maxeps=self.args.numEps, et=eps_time.avg,
-                                                                                                               total=bar.elapsed_td, eta=bar.eta_td)
+                    bar.suffix = '({eps}/{maxeps}) Eps Time: {et:.3f}s | Total: {total:} | ETA: {eta:}'.format(
+                        eps=eps+1, maxeps=self.args.numEps, et=eps_time.avg, total=bar.elapsed_td, eta=bar.eta_td)
                     bar.next()
                 bar.finish()
 
@@ -97,7 +97,9 @@ class Coach():
                 self.trainExamplesHistory.append(iterationTrainExamples)
                 
             if len(self.trainExamplesHistory) > self.args.numItersForTrainExamplesHistory:
-                print("len(trainExamplesHistory) =", len(self.trainExamplesHistory), " => remove the oldest trainExamples")
+                print("len(trainExamplesHistory) =",
+                      len(self.trainExamplesHistory),
+                      " => remove the oldest trainExamples")
                 self.trainExamplesHistory.pop(0)
             # backup history to a file
             # NB! the examples were collected using the model from the previous iteration, so (i-1)  

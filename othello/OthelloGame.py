@@ -27,24 +27,24 @@ class OthelloGame(Game):
         # if player takes action on board, return next (board,player)
         # action must be a valid move
         if action == self.n*self.n:
-            return (board, -player)
+            return board, -player
         b = Board(self.n)
         b.pieces = np.copy(board)
-        move = (int(action/self.n), action%self.n)
+        move = (int(action/self.n), action % self.n)
         b.execute_move(move, player)
-        return (b.pieces, -player)
+        return b.pieces, -player
 
     def getValidMoves(self, board, player):
         # return a fixed size binary vector
         valids = [0]*self.getActionSize()
         b = Board(self.n)
         b.pieces = np.copy(board)
-        legalMoves =  b.get_legal_moves(player)
-        if len(legalMoves)==0:
-            valids[-1]=1
+        legal_moves = b.get_legal_moves(player)
+        if len(legal_moves) == 0:
+            valids[-1] = 1
             return np.array(valids)
-        for x, y in legalMoves:
-            valids[self.n*x+y]=1
+        for x, y in legal_moves:
+            valids[self.n*x+y] = 1
         return np.array(valids)
 
     def getGameEnded(self, board, player):
