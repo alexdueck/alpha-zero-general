@@ -143,20 +143,18 @@ class Coach():
         filename = os.path.join(folder, self.getCheckpointFile(iteration)+".examples")
         with open(filename, "wb+") as f:
             Pickler(f).dump(self.trainExamplesHistory)
-        f.closed
 
     def loadTrainExamples(self):
-        modelFile = os.path.join(self.args.load_folder_file[0], self.args.load_folder_file[1])
-        examplesFile = modelFile+".examples"
-        if not os.path.isfile(examplesFile):
-            print(examplesFile)
+        model_file = os.path.join(self.args.load_folder_file[0], self.args.load_folder_file[1])
+        examples_file = model_file+".examples"
+        if not os.path.isfile(examples_file):
+            print(examples_file)
             r = input("File with trainExamples not found. Continue? [y|n]")
             if r != "y":
                 sys.exit()
         else:
             print("File with trainExamples found. Read it.")
-            with open(examplesFile, "rb") as f:
+            with open(examples_file, "rb") as f:
                 self.trainExamplesHistory = Unpickler(f).load()
-            f.closed
             # examples based on the model were already collected (loaded)
             self.skipFirstSelfPlay = True

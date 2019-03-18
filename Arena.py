@@ -37,19 +37,19 @@ class Arena():
         curPlayer = 1
         board = self.game.getInitBoard()
         it = 0
-        while self.game.getGameEnded(board, curPlayer)==0:
-            it+=1
+        while self.game.getGameEnded(board, curPlayer) == 0:
+            it += 1
             if verbose:
                 assert(self.display)
                 print("Turn ", str(it), "Player ", str(curPlayer))
                 self.display(board)
             action = players[curPlayer+1](self.game.getCanonicalForm(board, curPlayer))
 
-            valids = self.game.getValidMoves(self.game.getCanonicalForm(board, curPlayer),1)
+            valids = self.game.getValidMoves(self.game.getCanonicalForm(board, curPlayer), 1)
 
-            if valids[action]==0:
+            if valids[action] == 0:
                 print(action)
-                assert valids[action] >0
+                assert valids[action] > 0
             board, curPlayer = self.game.getNextState(board, curPlayer, action)
         if verbose:
             assert(self.display)
@@ -77,8 +77,11 @@ class Arena():
         one_won = 0
         two_won = 0
         draws = 0
+        game_results = []
+
         for _ in range(num):
             game_result = self.playGame(verbose=verbose)
+            game_results.append(game_result)
             if game_result == 1:
                 one_won += 1
             elif game_result == -1:
@@ -90,13 +93,14 @@ class Arena():
             eps_time.update(time.time() - end)
             end = time.time()
             bar.suffix = '({eps}/{maxeps}) Eps Time: {et:.3f}s | Total: {total:} | ETA: {eta:}'.format(
-                eps=eps+1, maxeps=maxeps, et=eps_time.avg, total=bar.elapsed_td, eta=bar.eta_td)
+                eps=eps, maxeps=maxeps, et=eps_time.avg, total=bar.elapsed_td, eta=bar.eta_td)
             bar.next()
 
         self.player1, self.player2 = self.player2, self.player1
-        
+
         for _ in range(num):
             game_result = self.playGame(verbose=verbose)
+            game_results.append(-game_result)  # -game_result, since player1 & player2 changed roles
             if game_result == -1:
                 one_won += 1
             elif game_result == 1:
@@ -108,9 +112,9 @@ class Arena():
             eps_time.update(time.time() - end)
             end = time.time()
             bar.suffix = '({eps}/{maxeps}) Eps Time: {et:.3f}s | Total: {total:} | ETA: {eta:}'.format(
-                eps=eps+1, maxeps=num, et=eps_time.avg, total=bar.elapsed_td, eta=bar.eta_td)
+                eps=eps, maxeps=maxeps, et=eps_time.avg, total=bar.elapsed_td, eta=bar.eta_td)
             bar.next()
             
         bar.finish()
 
-        return one_won, two_won, draws
+        return (one_won, two_won, draws), game_results
