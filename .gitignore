@@ -12,3 +12,8 @@ checkpoints/
 .idea/
 
 notes.md
+benchmark_results/
+results_*.csv
+ubuntu_ckpts/
+# temporary file from excel
+~$experiments.xlsx

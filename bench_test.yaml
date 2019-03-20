@@ -1,0 +1,7 @@
+chkpt_dir: './ubuntu_ckpts/'
+opponents:
+  pytorch: './pretrained_models/othello/pytorch/6x100x25_best.pth.tar'
+  chainer: './pretrained_models/othello/chainer/6x6_checkpoint_349.pth.tar'
+agent_side: ['white', 'black']
+results_file_basename: './benchmark_results/results'
+num_games: 1
