@@ -57,7 +57,7 @@ class Arena():
             self.display(board)
         return self.game.getGameEnded(board, 1)
 
-    def playGames(self, num, verbose=False):
+    def playGames(self, num, verbose=False, eval_both_sides=True):
         """
         Plays num games in which player1 starts num/2 games and player2 starts
         num/2 games.
@@ -95,6 +95,9 @@ class Arena():
             bar.suffix = '({eps}/{maxeps}) Eps Time: {et:.3f}s | Total: {total:} | ETA: {eta:}'.format(
                 eps=eps, maxeps=maxeps, et=eps_time.avg, total=bar.elapsed_td, eta=bar.eta_td)
             bar.next()
+
+        if not eval_both_sides:
+            return (one_won, two_won, draws), game_results
 
         self.player1, self.player2 = self.player2, self.player1
 
