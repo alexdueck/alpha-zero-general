@@ -23,14 +23,15 @@ def setup_player(game, args, chkp_dir, chkp_file):
 
 if __name__ == '__main__':
     g = OthelloGame(6)
+    num_games_per_side = 15
 
-    args1 = dotdict({'numMCTSSims': 50, 'cpuct': 1.0})
+    args1 = dotdict({'numMCTSSims': 25, 'cpuct': 1.0})
     p1 = setup_player(game=g,
                       args=args1,
                       chkp_dir='./pretrained_models/othello/pytorch/',
                       chkp_file='6x100x25_best.pth.tar')
 
-    args2 = dotdict({'numMCTSSims': 50, 'cpuct': 1.0})
+    args2 = dotdict({'numMCTSSims': 25, 'cpuct': 1.0})
     p2 = setup_player(game=g,
                       args=args2,
                       chkp_dir='./pretrained_models/othello/pytorch/',
@@ -41,7 +42,7 @@ if __name__ == '__main__':
 
     # my own evaluation function
     print('starting contest, p1: white, p2: black')
-    contest_result1, game_results1 = eval.contest(player_white=p1, player_black=p2, game=g, num_games=5)
+    contest_result1, game_results1 = eval.contest(player_white=p1, player_black=p2, game=g, num_games=num_games_per_side)
 
     print('game results from WHITE\'s perspective (white: p1, black: p2):')
     print(game_results1)
@@ -50,7 +51,7 @@ if __name__ == '__main__':
     # my own evaluation function
     print()
     print('starting contest, p1: black, p2: white')
-    contest_result2, game_results2 = eval.contest(player_white=p2, player_black=p1, game=g, num_games=5)
+    contest_result2, game_results2 = eval.contest(player_white=p2, player_black=p1, game=g, num_games=num_games_per_side)
 
     print('game results from WHITE\'s perspective (white: p2, black: p1):')
     print(game_results2)
