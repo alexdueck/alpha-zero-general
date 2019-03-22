@@ -29,6 +29,8 @@ def contest(player_white, player_black, game, num_games):
     game_results = []
     for i in range(num_games):
         print('playing game {}/{}'.format(i+1, num_games))
+        player_white.reset_mcts()
+        player_black.reset_mcts()
         game_result = play_game(player_white=player_white, player_black=player_black, game=game)
         game_results.append(game_result)
         if game_result == WHITE:

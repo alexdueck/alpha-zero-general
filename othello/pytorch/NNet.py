@@ -6,19 +6,18 @@ import random
 import numpy as np
 import math
 import sys
-sys.path.append('../../')
-from utils import *
-from pytorch_classification.utils import Bar, AverageMeter
-from NeuralNet import NeuralNet
-
-import argparse
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 from torchvision import datasets, transforms
+from pytorch_classification.utils import Bar, AverageMeter
 
+sys.path.append('../../')
+from utils import dotdict
+from NeuralNet import NeuralNet
 from .OthelloNNet import OthelloNNet as onnet
+
 
 args = dotdict({
     'lr': 0.001,
@@ -28,6 +27,7 @@ args = dotdict({
     'cuda': torch.cuda.is_available(),
     'num_channels': 512,
 })
+
 
 class NNetWrapper(NeuralNet):
     def __init__(self, game):
