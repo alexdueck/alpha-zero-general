@@ -39,7 +39,7 @@ def reverse_perspective(res):
 
 
 def score_from_res(res):
-    return (res[0] - res[1]) / sum(res)
+    return float(res[0] - res[1]) / float(sum(res))  # float(): Python2
 
 
 def main():

@@ -47,4 +47,7 @@ p2 = setup_player(game=g,
                   chkp_file='6x100x25_best.pth.tar')
 
 arena = Arena.Arena(p1, p2, g, display=display)
-print(arena.playGames(10, verbose=False))
+contest_result, game_results = arena.playGames(10, verbose=False)
+print('contest result: {}'.format(contest_result))
+print('game results:')
+print(game_results)

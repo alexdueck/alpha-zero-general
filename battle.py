@@ -37,7 +37,7 @@ if __name__ == '__main__':
                       chkp_file='6x100x25_best.pth.tar')
 
     # arena = Arena.Arena(n1p, n2p, g, display=display)
-    # contest_result = arena.playGames(6, verbose=False)
+    # contest_result, game_results = arena.playGames(6, verbose=False)
 
     # my own evaluation function
     print('starting contest, p1: white, p2: black')
@@ -58,9 +58,9 @@ if __name__ == '__main__':
 
     game_results = np.concatenate((game_results1, -game_results2))
     # merge contest results coherently, s.t. #wins & #losses are added from perspective of the same player
-    contest_result = (contest_result1[0] + contest_result2[2],
-                      contest_result1[1] + contest_result2[1],
-                      contest_result1[2] + contest_result2[0])
+    contest_result = (contest_result1[0] + contest_result2[1],
+                      contest_result1[1] + contest_result2[0],
+                      contest_result1[2] + contest_result2[2])
 
     print('all game results from perspective of same player:')
     print(game_results)

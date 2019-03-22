@@ -38,4 +38,4 @@ def contest(player_white, player_black, game, num_games):
         else:
             n_draws += 1
 
-    return (n_wins_white, n_draws, n_losses_white), np.array(game_results)
+    return (n_wins_white, n_losses_white, n_draws), np.array(game_results)
