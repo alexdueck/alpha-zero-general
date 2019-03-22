@@ -73,7 +73,8 @@ class Arena():
         eps = 0
         maxeps = int(num)
 
-        num = int(num/2)
+        if eval_both_sides:
+            num = int(num/2)
         one_won = 0
         two_won = 0
         draws = 0
